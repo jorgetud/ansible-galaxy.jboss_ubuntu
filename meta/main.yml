@@ -1,0 +1,5 @@
+---
+dependencies:
+- { role: application.supervisor }
+- { role: application.supervisor.add_program, name: "jboss", command: "/usr/local/share/jboss/current/bin/standalone.sh" }
+- { role: grlee.java_ubuntu }
