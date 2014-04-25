@@ -1,5 +1,16 @@
 ---
+galaxy_info:
+  author: George Lee
+  description: Installs jboss on ubuntu
+  company:
+  license: BSD
+  min_ansible_version: 1.5
+  platforms:
+  - name: Ubuntu
+    versions:
+    - saucy
+    - trusty
+  categories:
+  - development
 dependencies:
-- { role: application.supervisor }
-- { role: application.supervisor.add_program, name: "jboss", command: "/usr/local/share/jboss/current/bin/standalone.sh" }
-- { role: grlee.java_ubuntu }
+- grlee.java_ubuntu
