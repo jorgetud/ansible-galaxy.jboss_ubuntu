@@ -1,5 +1,0 @@
----
-- name: Restart JBoss
-  shell: /etc/init.d/jboss restart
-  sudo: yes
-
