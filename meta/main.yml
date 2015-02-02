@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: George Lee
-  description: Installs jboss on ubuntu
+  author: Jorge Tudela (Based on grlee.jboss_ubuntu)
+  description: Installs Wildfly on ubuntu
   company:
   license: BSD
   min_ansible_version: 1.5
@@ -12,5 +12,5 @@ galaxy_info:
     - trusty
   categories:
   - development
-dependencies:
-- grlee.java_ubuntu
+dependencies: []
+#- grlee.java_ubuntu
