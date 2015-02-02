@@ -1,4 +1,5 @@
-ansible-galaxy.jboss_ubuntu
+ansible-galaxy.wildlfy_ubuntu
 ===========================
 
-Install JBoss on ubuntu
+Install Wildlfy on ubuntu.
+Based on: https://github.com/grlee/ansible-galaxy.jboss_ubuntu
