@@ -91,14 +91,14 @@ fi
 
 # Startup mode of wildfly
 if [ -z "$WILDFLY_MODE" ]; then
-	WILDFLY_MODE=standalone
+	WILDFLY_MODE="{{wildfly_mode}}"
 fi
 
 # Startup mode script
 if [ "$WILDFLY_MODE" = "standalone" ]; then
 	WILDFLY_SCRIPT="$WILDFLY_HOME/bin/standalone.sh"
 	if [ -z "$WILDFLY_CONFIG" ]; then
-		WILDFLY_CONFIG=standalone.xml
+		WILDFLY_CONFIG="{{wildfly_config_file}}"
 	fi
 else
 	WILDFLY_SCRIPT="$WILDFLY_HOME/bin/domain.sh"

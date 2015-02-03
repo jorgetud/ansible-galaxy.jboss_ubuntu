@@ -26,25 +26,48 @@
   when: check_current_version|failed
 
 - name: Update instalation owner
-  file: path="{{wildfly_installation_dir}}{{wildfly_name_complete}}"  owner=wildfly group=wildfly state=directory
+  file: path="{{wildfly_installation_dir}}{{wildfly_name_complete}}"  owner="{{wildfly_user}}" group="{{wildfly_user}}" state=directory
   sudo: yes
 
-
 - name: Update current Wildfly sym-link
-  file: src="{{wildfly_installation_dir}}{{wildfly_name_complete}}" dest={{wildfly_installation_dir}}wildfly owner=wildfly group=wildfly state=link
+  file: src="{{wildfly_installation_dir}}{{wildfly_name_complete}}" dest={{wildfly_installation_dir}}wildfly owner="{{wildfly_user}}" group="{{wildfly_user}}" state=link
   sudo: yes
 
 - name: Update Wildfly home directory so wildfly user owns file
-  file: path="{{wildfly_installation_dir}}{{wildfly_name_complete}}" state=directory owner=wildfly group=wildfly recurse=yes
+  file: path="{{wildfly_installation_dir}}{{wildfly_name_complete}}" state=directory owner="{{wildfly_user}}" group="{{wildfly_user}}" recurse=yes
   sudo: yes
 
-- name: Upload Wildfly conf file
-  copy: src="wildfly.conf" dest="/etc/default/wildfly.conf" owner=root group=root mode=0644
-  sudo: yes
+#- name: Upload Wildfly conf file
+#  copy: src="wildfly.conf" dest="/etc/default/wildfly.conf" owner=root group=root mode=0644
+#  sudo: yes
 
-- name: Upload Wildfly service script
-  copy: src="wildfly.init.d" dest="/etc/init.d/wildfly" owner=root group=root mode=0755
+- name: Upload Wildfly conf file, with a template
+  template:
+	src=""wildfly.conf.j2"
+	dest="/etc/default/wildfly.conf"
+	owner=root group=root mode=0644
+
+#- name: Upload Wildfly service script
+#  copy: src="wildfly.init.d" dest="/etc/init.d/wildfly" owner=root group=root mode=0755
+#  sudo: yes
+
+- name: Upload Wildfly conf file, with a template
+  template:
+        src="wildfly.init.dj2"
+        dest="/etc/init.d/wildfly"
+        owner=root group=root mode=0755
+
+- name: Upload automatedAddUser script to WILDFLY_HOME/bin
+  register: automated_adduser_script
+  template:
+        src="addConsoleAdminUser.sh.j2"
+        dest="{{wildfly_home}}/bin/addConsoleAdminUser.sh"
+        owner=root group=root mode=0754
+
+- name: Add wildfly admin console user, with the addConsoleAdminUser.sh script.
   sudo: yes
+  command: {{wildfly_home}}/bin/addConsoleAdminUser.sh
+  when: automated_adduser_script
 
 - name: Add JAVA_OPTS to standadlone.conf
   lineinfile: dest={{wildfly_installation_dir}}{{wildfly_name_complete}}/bin/standalone.conf

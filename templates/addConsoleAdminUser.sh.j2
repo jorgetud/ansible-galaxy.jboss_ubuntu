@@ -1,0 +1,26 @@
+#!/usr/bin/expect
+#
+# Author: Jorge Tudela
+# Description: Automation script which adds and admin user to Wildfly console.
+#
+
+spawn "{{wildfly_home}}/bin/add-user.sh"
+
+expect "(a):" 
+send "a\r"
+
+expect "Username :" 
+send "{{wildfly_admin_user}}\r"
+
+expect "Password :" 
+send "{{wildfly_admin_password}}\r"
+
+expect "Re-enter Password :" 
+send "{{wildfly_admin_password}}\r"
+
+expect "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: "
+send "\r"
+
+expect "Is this correct yes/no?" { send "yes\r" }
+
+expect "yes/no?" { send "no\r" }

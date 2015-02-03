@@ -10,4 +10,26 @@ wildfly_version_complete: "{{wildfly_version_long}}{{wildfly_version_stage}}"
 wildfly_name_complete: "wildfly-{{wildfly_version_complete}}"
 wildfly_url: "http://download.jboss.org/wildfly/{{wildfly_version_long}}{{wildfly_version_stage}}/wildfly-{{wildfly_version_complete}}.zip"
 
+#Folder where it will be installed
 wildfly_installation_dir: "/opt/"
+
+wildfly_home: "{{wildfly_installation_dir}}wildfly"
+
+#Linux user running wildlfy
+wildfly_user: "wildfly"
+
+#Wildfly Mode (Standalone or domain)
+wildfly_mode: "standadlone"
+
+#Wildfly confg file
+wildfly_config_file: "standalone-full.xml"
+
+# Console admin user
+wildfly_admin_user: "wildly"
+
+# At least 8 chars: numeric, Upper, lower, symbol
+wildfly_admin_password: "Wildfly.66"
+
+startup_wait: "60"
+
+shutdown_wait: "60"
