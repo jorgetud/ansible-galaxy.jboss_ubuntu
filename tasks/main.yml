@@ -43,9 +43,9 @@
 
 - name: Upload Wildfly conf file, with a template
   template:
-	src=""wildfly.conf.j2"
-	dest="/etc/default/wildfly.conf"
-	owner=root group=root mode=0644
+    src=wildfly.conf.j2
+    dest="/etc/default/wildfly.conf"
+    owner=root group=root mode=0644
 
 #- name: Upload Wildfly service script
 #  copy: src="wildfly.init.d" dest="/etc/init.d/wildfly" owner=root group=root mode=0755
@@ -53,7 +53,7 @@
 
 - name: Upload Wildfly conf file, with a template
   template:
-        src="wildfly.init.dj2"
+        src="wildfly.init.d.j2"
         dest="/etc/init.d/wildfly"
         owner=root group=root mode=0755
 
@@ -62,11 +62,18 @@
   template:
         src="addConsoleAdminUser.sh.j2"
         dest="{{wildfly_home}}/bin/addConsoleAdminUser.sh"
-        owner=root group=root mode=0754
+        owner="{{wildfly_user}}" group="{{wildfly_user}}" mode=0754
+
+- name: Install expect command
+  apt:
+    pkg: expect
+    state: present
+    update_cache: yes
+    cache_valid_time: 600
 
 - name: Add wildfly admin console user, with the addConsoleAdminUser.sh script.
   sudo: yes
-  command: {{wildfly_home}}/bin/addConsoleAdminUser.sh
+  command: "{{wildfly_home}}/bin/addConsoleAdminUser.sh"
   when: automated_adduser_script
 
 - name: Add JAVA_OPTS to standadlone.conf
