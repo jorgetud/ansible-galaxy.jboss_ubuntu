@@ -44,7 +44,7 @@
 - name: Upload Wildfly conf file, with a template
   template:
     src=wildfly.conf.j2
-    dest="/etc/default/wildfly.conf"
+    dest="/etc/default/wildfly"
     owner=root group=root mode=0644
 
 #- name: Upload Wildfly service script
@@ -80,7 +80,7 @@
   lineinfile: dest={{wildfly_installation_dir}}{{wildfly_name_complete}}/bin/standalone.conf
               regexp=''
               insertafter=EOF
-              line='JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0"JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0"'
+              line='JAVA_OPTS="$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0"' 
 
 - name: Restart Wildfly
   service: name=wildfly state=started enabled=yes
