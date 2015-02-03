@@ -51,7 +51,7 @@
 #  copy: src="wildfly.init.d" dest="/etc/init.d/wildfly" owner=root group=root mode=0755
 #  sudo: yes
 
-- name: Upload Wildfly conf file, with a template
+- name: Upload Wildfly init.d script, with a template
   template:
         src="wildfly.init.d.j2"
         dest="/etc/init.d/wildfly"
@@ -89,4 +89,4 @@
 
 - name: Remove Wildfly download
   file: path="/tmp/{{wildfly_name_complete}}.zip" state=absent
-  when: restarted_wildfly
+  when: restarted_wildfly|success
